@@ -16,10 +16,10 @@ public class KafkaConsumerTest {
         props.put(ConsumerConfig.BOOTSTRAP_SERVERS_CONFIG, "Kafka_1:9092,Kafka_2:9092,Kafka_3:9092");
         props.put(ConsumerConfig.KEY_DESERIALIZER_CLASS_CONFIG, StringDeserializer.class.getName());
         props.put(ConsumerConfig.VALUE_DESERIALIZER_CLASS_CONFIG, StringDeserializer.class.getName());
-        props.put(ConsumerConfig.GROUP_ID_CONFIG, "g1");//可以用到组管理机制
+        props.put(ConsumerConfig.GROUP_ID_CONFIG, "g1");//可以用到组管理机制：组内负载均衡，组间广播
 
         KafkaConsumer<String, String> consumer = new KafkaConsumer<String, String>(props);
-        consumer.subscribe(Pattern.compile("^topic.*"));//可以用到组管理机制
+        consumer.subscribe(Pattern.compile("^topic.*"));//可以用到组管理机制：组内负载均衡，组间广播
         while (true) {
             ConsumerRecords<String, String> consumerRecords = consumer.poll(Duration.ofSeconds(1));
             if (!consumerRecords.isEmpty()) { //从队列中取到了数据
