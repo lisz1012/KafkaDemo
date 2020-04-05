@@ -10,7 +10,7 @@ import java.util.Properties;
 import java.util.concurrent.TimeUnit;
 /*
 kafka当前最新版本2.4.0合入的一个KIP-480，它的核心逻辑就是当存在无key的序列消息时，我们消息发送的分区优先保持粘连，如果当前分区下的batch已经满了或者
-linger.ms延迟时间已到开始发送，就会重新启动一个新的分区（逻辑还是按照Round-Robin模式）.消息的时间间隔越短，Producer越倾向于发送到同一分区
+linger.ms延迟时间已到开始发送，就会重新启动一个新的分区（逻辑还是按照Round-Robin模式）.消息的时间间隔越短，KafkaProducer越倾向于发送到同一分区
 这种模式一个最大的优势在于可以最大限度的保障每个batch的消息足够多，并且不至于会有过多的空batch提前申请，因为默认分区模式下，一组序列消息总是会被分散到各个分区中，
 会导致每个batch的消息不够大，最终会导致客户端请求频次过多，而Sticky的模式可以降低请求频次，提升整体发送迟延
 https://segmentfault.com/a/1190000020515457
