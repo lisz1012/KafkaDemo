@@ -19,7 +19,7 @@ public class KafkaConsumerOffsetTest {
         props.put(ConsumerConfig.KEY_DESERIALIZER_CLASS_CONFIG, StringDeserializer.class.getName());
         props.put(ConsumerConfig.VALUE_DESERIALIZER_CLASS_CONFIG, StringDeserializer.class.getName());
         props.put(ConsumerConfig.GROUP_ID_CONFIG, "g1");//可以用到组管理机制：组内负载均衡，组间广播
-        //这个配置只管着这个Consumer第一次消费这个topic（系统还没有偏移量）的时候从最新的开始读，忽略原来已经produce的。不是第一次消费这个topic的话，与earliest行为相同，在这之后都会从错过的第一条消息开始读
+        //这个配置只管着这个Consumer第一次消费这个topic（系统还没有偏移量）的时候从最新的开始读，忽略原来已经produce的。不是第一次消费这个topic的话，与earliest行为相同，在这之后都会从错过的第一条消息开始读，因为有offset自动提交
         props.put(ConsumerConfig.AUTO_OFFSET_RESET_CONFIG, "latest");
 
         KafkaConsumer<String, String> consumer = new KafkaConsumer<String, String>(props);
