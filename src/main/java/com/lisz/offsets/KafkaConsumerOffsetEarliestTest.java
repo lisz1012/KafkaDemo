@@ -24,6 +24,8 @@ public class KafkaConsumerOffsetEarliestTest {
         KafkaConsumer<String, String> consumer = new KafkaConsumer<String, String>(props);
         consumer.subscribe(Arrays.asList("topic02"));//可以用到组管理机制：组内负载均衡，组间广播
         while (true) {
+            //poll里面会fetch消息，Fetcher的1541行：nextFetchOffset = lastRecord.offset() + 1; 偏移量递增；而在685、420、839行会更新本地偏移量
+            //而提交到服务器的配置是通过enable.auto.commit=true和auto.commit.interval.ms=5000来配置的
             ConsumerRecords<String, String> consumerRecords = consumer.poll(Duration.ofSeconds(1));
             if (!consumerRecords.isEmpty()) { //从队列中取到了数据
                 Iterable<ConsumerRecord<String, String>> records = consumerRecords.records("topic02");//也可以用consumerRecords.iterator()
