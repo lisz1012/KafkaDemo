@@ -20,7 +20,7 @@ public class KafkaProducerOffsetTest {
 
         for (int i = 0; i < 5; i++) {
             Person person = new Person(i, "lisz" + i);
-            producer.send(new ProducerRecord<String, String>("topic02", "lisz" + i, "李书征"));
+            producer.send(new ProducerRecord<String, String>("topic02", "lisz" + i, "李书征"));//有key，按照DefaultPartitioner走哈希
             TimeUnit.SECONDS.sleep(3);
         }
 
