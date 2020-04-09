@@ -21,9 +21,9 @@ public class KafkaProducerTransactionProducerOnlyTest {
             // 2. 开始事务
             producer.beginTransaction();
             for (int i = 0; i < 10; i++) {
-                //if (i == 8) {
-                //    int j = 8 / 0;
-                //} //注掉之后10条消息就在两边都全部打印出来了
+                if (i == 8) {
+                    int j = 8 / 0;
+                } //注掉之后10条消息就在两边都全部打印出来了
                 producer.send(new ProducerRecord<String, String>("topic01", "lisz" + i, "李书征"));
                 producer.flush();
             }
