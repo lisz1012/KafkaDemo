@@ -28,12 +28,10 @@ public class KafkaProducerTransactionProducerAndConsumerTest {
                     producer.beginTransaction();
                     while (iterator.hasNext()) {
                         ConsumerRecord<String, String> record = iterator.next();
-                        System.out.println(String.format("Topic: %s Key: %s Offset: %s", record.topic(), record.key(), record.offset()));
                         //存储元数据
                         offsets.put(new TopicPartition(record.topic(), record.partition()), new OffsetAndMetadata(record.offset() + 1));
                         producer.send(new ProducerRecord<>("topic02", record.key(), record.value() + " - lisz!!"));
                         producer.flush();
-                        System.out.println("Send!");
                     }
                     producer.sendOffsetsToTransaction(offsets, "g1");//提交消费者的偏移量
                     producer.commitTransaction();
