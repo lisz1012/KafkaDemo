@@ -39,7 +39,7 @@ public class KafkaProducerTransactionProducerAndConsumerTest {
                     System.err.println("出现错误了： " + e);
                     producer.abortTransaction();
                 } finally {
-                    //producer.close();
+                    //producer.close(); //这里有循环，不能在这里close，否则报错：java.lang.IllegalStateException: Cannot perform operation after producer has been closed
                 }
             }
         }
