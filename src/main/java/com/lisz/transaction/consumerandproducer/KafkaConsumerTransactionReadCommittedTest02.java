@@ -28,7 +28,7 @@ public class KafkaConsumerTransactionReadCommittedTest02 {
             ConsumerRecords<String, String> consumerRecords = consumer.poll(Duration.ofSeconds(1));
             System.out.println(consumerRecords.isEmpty());
             if (!consumerRecords.isEmpty()) { //从队列中取到了数据
-                Iterable<ConsumerRecord<String, String>> records = consumerRecords.records("topic02");//也可以用consumerRecords.iterator()
+                Iterable<ConsumerRecord<String, String>> records = consumerRecords.records("topic02");//Consumer可能订阅多个topic，所以要指定。也可以用consumerRecords.iterator()
                 System.out.println("Has next: " + records.iterator().hasNext());
                 records.forEach(r->{
                     System.out.println(String.format("Topic: %s Partition: %s Offset: %s Key: %s Value: %s Timestamp: %s",
