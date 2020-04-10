@@ -6,7 +6,14 @@ import org.apache.kafka.clients.producer.ProducerRecord;
 import org.apache.kafka.common.serialization.StringSerializer;
 
 import java.util.Properties;
-
+/*
+幂等又称exactly once。要停止多次处理消息，必须将其持久化到Kafka Topic中有且只有一次。在初始化期间，
+Kafka会给生产者生成一个唯一的ID，称为producer ID或者PID。PID和序列号绑在一起，然后发给broker。由于
+序列号从零开始并且单调递增。因此，仅当消息的序列号比该PID / TopicPartition中最后提交的消息正好大1时，
+broker才会接受消息。如果不是这种情况，则Broker使生产者重新发送了该消息。
+enable.idempotence=false 默认
+注意：在使用幂等性的时候，要求必须开启retries大于0，且acks=all
+ */
 public class KafkaProducerIdempotenceTest {
     public static void main(String[] args) throws Exception {
         Properties props = new Properties();
