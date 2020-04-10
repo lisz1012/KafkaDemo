@@ -56,7 +56,7 @@ public class KafkaProducerTransactionProducerOnlyTest {
         props.put(ProducerConfig.ENABLE_IDEMPOTENCE_CONFIG, true);
         // Allowing retries without setting max.in.flight.requests.per.connection to 1 will potentially change the ordering of records
         // because if two batches are sent to a single partition, and the first fails and is retried but the second succeeds, then the
-        // records in the second batch may appear first.
+        // records in the second batch may appear first.这里保证了记录的严格有序
         props.put(ProducerConfig.MAX_IN_FLIGHT_REQUESTS_PER_CONNECTION, 1);
 
         return new KafkaProducer<>(props);
