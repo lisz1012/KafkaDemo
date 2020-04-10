@@ -20,7 +20,8 @@ Kafka会给生产者生成一个唯一的ID，称为producer ID或者PID。PID�
 序列号从零开始并且单调递增。因此，仅当消息的序列号比该PID / TopicPartition中最后提交的消息正好大1时，
 broker才会接受消息。如果不是这种情况，则Broker使生产者重新发送了该消息。
 enable.idempotence=false 默认
-注意：在使用幂等性的时候，要求必须开启retries大于0，且acks=all
+注意：在使用幂等性的时候，要求必须开启retries大于0，且acks=all, 即所有副本都同步了之后才给producer发
+回ack
  */
 public class KafkaProducerIdempotenceTest {
     public static void main(String[] args) throws Exception {
