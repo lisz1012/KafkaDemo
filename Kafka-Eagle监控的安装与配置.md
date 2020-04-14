@@ -86,5 +86,5 @@
    因为有些JVM参数已经废弃了，启动的时候会出错。报错日志在`/usr/local/kafka-eagle/kms/logs/catalina.out` 中
 11. `cd /usr/local/kafka-eagle/bin`  
 12. `chomd 0755 ./ke.sh`  
-13. `./ke.sh start` 启动之后会在`127.0.0.1`上建立一个名为userke的数据库 (安装MySQL：https://www.jianshu.com/p/276d59cbc529  <----- 很详细！！)
+13. `./ke.sh start` 启动之后会在`127.0.0.1`上建立一个名为userke的数据库 (安装MySQL指导https://www.jianshu.com/p/276d59cbc529  <----- 很详细！！)
    
