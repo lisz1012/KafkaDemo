@@ -1,5 +1,6 @@
 ## Kafka-Eagle监控的安装与配置
 
+### Setup
 1. 官网下载：http://download.kafka-eagle.org  
 2. 传到某一台机器上。在哪个节点上装都可以，装一个就行  
 3. `tar xf kafka-eagle-bin-1.4.6.tar`
@@ -65,7 +66,7 @@
    # kafka mysql jdbc driver address
    ######################################
    kafka.eagle.driver=com.mysql.jdbc.Driver
-   kafka.eagle.url=jdbc:mysql://127.0.0.1:3306/userke?useUnicode=true&characterEncoding=UTF-8&zeroDateTimeBehavior=convertToNull
+   kafka.eagle.url=jdbc:mysql://127.0.0.1:3306/userke?useUnicode=true&characterEncoding=UTF-8&zeroDateTimeBehavior=convertToNull&useSSL=false&serverTimezone=GMT-7&allowPublicKeyRetrieval=true&allowMultiQueries=true
    kafka.eagle.username=root
    kafka.eagle.password=^abc123$
    ```
@@ -87,4 +88,9 @@
 11. `cd /usr/local/kafka-eagle/bin`  
 12. `chomd 0755 ./ke.sh`  
 13. `./ke.sh start` 启动之后会在`127.0.0.1`上建立一个名为userke的数据库 (安装MySQL指导https://www.jianshu.com/p/276d59cbc529  <----- 很详细！！)
+
+### 测试
+1. Mock 可以试着发消息，如果有Consumer在监听，则可以接收到  
+2. KSQL也可以跑简单的查询：`select * from "topic02" where "partition" in (0, 1, 2) limit 10`
+3. Manager里面可以设置各个topic，比如segment.bytes=1024000
    
