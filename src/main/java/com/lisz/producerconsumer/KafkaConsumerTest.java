@@ -9,7 +9,7 @@ import org.apache.kafka.common.serialization.StringDeserializer;
 import java.time.Duration;
 import java.util.Properties;
 import java.util.regex.Pattern;
-// 同一个组之内的消息是有序的，有consumer加入或者退出，可能引起各个consumer对于topic下各个partition的rebalance。有可能一个consumer负责两个partition
+// 同一个组之内的消息是有序的，有consumer加入或者退出，可能引起各个consumer对于topic下各个partition的rebalance。有可能一个consumer负责leader两个partition
 public class KafkaConsumerTest {
     public static void main(String[] args) throws Exception {
         Properties props = new Properties();
