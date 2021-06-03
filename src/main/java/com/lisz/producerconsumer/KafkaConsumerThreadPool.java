@@ -21,13 +21,15 @@ public class KafkaConsumerThreadPool {
         props.put(ConsumerConfig.BOOTSTRAP_SERVERS_CONFIG, "hadoop-02:9092,hadoop-03:9092,hadoop-04:9092");
         props.put(ConsumerConfig.KEY_DESERIALIZER_CLASS_CONFIG, StringDeserializer.class.getName());
         props.put(ConsumerConfig.VALUE_DESERIALIZER_CLASS_CONFIG, StringDeserializer.class.getName());
+        props.put(ConsumerConfig.AUTO_COMMIT_INTERVAL_MS_CONFIG, 20000);
+        props.put(ConsumerConfig.ENABLE_AUTO_COMMIT_CONFIG, true);
         props.put(ConsumerConfig.GROUP_ID_CONFIG, "g1");
 
         KafkaConsumer<String, String> consumer = new KafkaConsumer<String, String>(props);
         List<TopicPartition> partitions = Arrays.asList(new TopicPartition("topic01", 0));
         consumer.assign(partitions);
 
-        ExecutorService threadpool = Executors.newFixedThreadPool(3);
+        ExecutorService threadpool = Executors.newFixedThreadPool(6);
 
         while (true) {
             ConsumerRecords<String, String> consumerRecords = consumer.poll(Duration.ofSeconds(1));
@@ -37,7 +39,7 @@ public class KafkaConsumerThreadPool {
                     threadpool.submit(new Task(r));
                 });
             }
-            TimeUnit.SECONDS.sleep(1);
+            //TimeUnit.SECONDS.sleep(1);
         }
     }
 }

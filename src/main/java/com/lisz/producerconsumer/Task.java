@@ -17,8 +17,8 @@ public class Task implements Runnable {
 	@Override
 	public void run() {
 		try {
-			int time = rand.nextInt(30);
-			Thread.sleep(time);
+			int time = rand.nextInt(40);
+			Thread.sleep(80 + time);
 		} catch (InterruptedException e) {
 			e.printStackTrace();
 		}
