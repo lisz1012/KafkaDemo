@@ -1,18 +1,15 @@
 package com.lisz.producerconsumer;
 
-import com.lisz.serialize.ObjectSerializer;
 import com.lisz.serialize.Person;
 import org.apache.kafka.clients.producer.KafkaProducer;
 import org.apache.kafka.clients.producer.ProducerConfig;
 import org.apache.kafka.clients.producer.ProducerRecord;
-import org.apache.kafka.clients.producer.RoundRobinPartitioner;
-import org.apache.kafka.common.serialization.IntegerSerializer;
 import org.apache.kafka.common.serialization.StringSerializer;
 
 import java.util.Properties;
 import java.util.concurrent.TimeUnit;
 
-public class KafkaProducerTest {
+public class KafkaProducerThreadPool {
     public static void main(String[] args) throws Exception {
         Properties props = new Properties();
         //props.put(ProducerConfig.BOOTSTRAP_SERVERS_CONFIG, "Kafka_1:9092,Kafka_2:9092,Kafka_3:9092");
@@ -22,10 +19,11 @@ public class KafkaProducerTest {
 
         KafkaProducer<String, String> producer = new KafkaProducer<>(props);
 
-        for (int i = 0; i < 90; i++) {
+        for (int i = 0; i < 1000; i++) {
             Person person = new Person(i, "lisz" + i);
-            producer.send(new ProducerRecord<String, String>("topic01", "lisz" + i, "李书征"));
-            TimeUnit.SECONDS.sleep(3);
+            ProducerRecord<String, String> record = new ProducerRecord<>("topic01", 0, "lisz" + i, "李书征");
+            producer.send(record);
+            //TimeUnit.SECONDS.sleep(3);
         }
 
         producer.close();
