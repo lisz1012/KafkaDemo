@@ -19,9 +19,9 @@ public class KafkaProducerThreadPool {
 
         KafkaProducer<String, String> producer = new KafkaProducer<>(props);
 
-        for (int i = 0; i < 2000; i++) {
+        for (int i = 0; i < 10; i++) {
             Person person = new Person(i, "lisz" + i);
-            ProducerRecord<String, String> record = new ProducerRecord<>("topic01", 0, "lisz" + i, "李书征");
+            ProducerRecord<String, String> record = new ProducerRecord<>("topic02", 0, "lisz" + i, "李书征");
             producer.send(record);
             //TimeUnit.SECONDS.sleep(3);
             Thread.sleep(10);
