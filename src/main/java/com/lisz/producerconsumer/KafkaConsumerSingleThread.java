@@ -40,9 +40,10 @@ public class KafkaConsumerSingleThread {
                     people.add(new Person(r.offset(), r.value()));
                 });
                 people.forEach(System.out::println);
+                //提交当前这整个一poll出来之后的偏移量，而不是某一个的，所以不能过早提交，那样会丢数据
+                consumer.commitSync();
             }
-            //提交当前这整个一poll出来之后的偏移量，而不是某一个的，所以不能过早提交，那样会丢数据
-            consumer.commitSync();
+
 
 
             //TimeUnit.SECONDS.sleep(1);Found no committed offset for partition topic02-0
