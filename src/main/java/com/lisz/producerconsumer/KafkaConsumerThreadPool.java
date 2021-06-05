@@ -30,7 +30,7 @@ public class KafkaConsumerThreadPool {
         List<TopicPartition> partitions = Arrays.asList(new TopicPartition("topic02", 0));
         consumer.assign(partitions);
 
-        ExecutorService threadpool = Executors.newFixedThreadPool(6);
+        ExecutorService threadpool = Executors.newFixedThreadPool(8);
 
         while (true) {
             final ConsumerRecords<String, String> consumerRecords = consumer.poll(Duration.ofSeconds(1));
@@ -60,6 +60,7 @@ public class KafkaConsumerThreadPool {
 
                 });
             }
+            consumer.commitSync();
             //TimeUnit.SECONDS.sleep(1);Found no committed offset for partition topic02-0
         }
     }
