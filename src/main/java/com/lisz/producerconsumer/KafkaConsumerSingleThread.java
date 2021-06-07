@@ -22,7 +22,7 @@ public class KafkaConsumerSingleThread {
         props.put(ConsumerConfig.VALUE_DESERIALIZER_CLASS_CONFIG, StringDeserializer.class.getName());
         //props.put(ConsumerConfig.AUTO_COMMIT_INTERVAL_MS_CONFIG, 1000);
         props.put(ConsumerConfig.ENABLE_AUTO_COMMIT_CONFIG, false);
-        props.put(ConsumerConfig.AUTO_OFFSET_RESET_CONFIG, "earliest"); // 指定为earlist的时候重启，即便
+        props.put(ConsumerConfig.AUTO_OFFSET_RESET_CONFIG, "earliest"); // 指定为earlist的时候，仅仅第一次启动的时候从头读取
         props.put(ConsumerConfig.GROUP_ID_CONFIG, "g1");
 
         KafkaConsumer<String, String> consumer = new KafkaConsumer<String, String>(props);
