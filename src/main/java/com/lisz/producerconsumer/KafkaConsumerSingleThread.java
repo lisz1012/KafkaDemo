@@ -33,7 +33,7 @@ public class KafkaConsumerSingleThread {
 
         while (true) {
             final ConsumerRecords<String, String> consumerRecords = consumer.poll(Duration.ofSeconds(1));
-            if (!consumerRecords.isEmpty()) { //从队列中取到了数据
+            if (!consumerRecords.isEmpty()) { //从队列中取到了数据，配置中可以指定消息个数的上限
                 Iterable<ConsumerRecord<String, String>> records = consumerRecords.records("topic02");//也可以用consumerRecords.iterator()
                 List<Person> people = new ArrayList<>();
                 records.forEach(r->{
